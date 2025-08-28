@@ -184,12 +184,13 @@ export class MyPage {
 
 ### Run Tests
 
-````bash
+```bash
 # Local Development Tests (default)
 yarn test                   # Run local tests only (recommended for development)
 
 # Live Package Tests
 yarn test:live             # Run live package tests only
+```
 
 **Note**: The default `yarn test` command runs only local development tests. To run both test suites, use `yarn test` followed by `yarn test:live`.
 
@@ -199,7 +200,7 @@ yarn test:live             # Run live package tests only
 - `yarn test --grep "pattern"` - Run only tests matching a pattern
 - `yarn test --timeout 60000` - Set custom timeout
 
-### Test Examples
+## 📋 Test Examples
 
 The test suite demonstrates:
 
@@ -207,7 +208,7 @@ The test suite demonstrates:
 - **Complete coverage**: All elements with visibility checks
 - **Custom filtering**: User-defined element filters
 
-### Test Structure
+## 🏗️ Test Structure
 
 The project includes two test suites:
 
@@ -233,25 +234,7 @@ This script will automatically:
 - Build the project with `yarn build`
 - Run tests to verify setup with `yarn test`
 
-### CI/CD
 
-This project includes GitHub Actions workflows:
-
-- **Publish Workflow**: Automatically publishes to npm when you update the version in package.json
-  - Triggers when package.json is modified on main branch
-  - Builds, tests, and publishes to npm
-  - Creates a GitHub release
-
-- **Test Workflow**: Runs after successful publish to validate the published package
-  - Builds the project
-  - Runs both local and live tests
-  - Checks linting and formatting
-  - Only runs when publish workflow succeeds
-
-**To publish a new version:**
-1. Update version in `package.json` (e.g., change `"version": "1.0.0"` to `"version": "1.0.1"`)
-2. Commit and push to main branch: `git add package.json && git commit -m "Bump version to 1.0.1" && git push origin main`
-3. The workflow will automatically detect the version change and publish to npm
 
 ### Build
 
