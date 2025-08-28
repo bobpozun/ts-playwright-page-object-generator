@@ -1,6 +1,6 @@
 {
   "name": "ts-playwright-page-object-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A powerful tool for automatically generating Playwright Page Objects from web pages. Focuses on interactive elements by default and generates clean, maintainable TypeScript code.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
