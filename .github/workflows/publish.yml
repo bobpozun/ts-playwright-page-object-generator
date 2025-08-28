@@ -1,0 +1,63 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    if: |
+      contains(github.event.head_commit.modified, 'package.json') ||
+      contains(github.event.head_commit.added, 'package.json')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build project
+        run: yarn build
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Publish to npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: yarn publish --access public
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          body: |
+            ## What's Changed
+
+            This release includes updates to the TypeScript Playwright Page Object Generator.
+
+            ### Installation
+
+            ```bash
+            npm install ts-playwright-page-object-generator@latest
+            # or
+            yarn add ts-playwright-page-object-generator@latest
+            ```
+
+            ### Documentation
+
+            - [npm package](https://www.npmjs.com/package/ts-playwright-page-object-generator)
+            - [GitHub repository](https://github.com/bobpozun/ts-playwright-page-object-generator)
+          draft: false
+          prerelease: false
+          release_name: Release ${{ github.ref }}
+          tag_name: ${{ github.ref }}
